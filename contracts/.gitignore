@@ -1,0 +1,16 @@
+# Foundry build artifacts
+out/
+cache/
+
+# Broadcast files (contains deployment data, keep local only)
+broadcast/
+
+# Environment variables
+.env
+
+# Dependencies
+lib/
+
+# Coverage
+lcov.info
+coverage/
