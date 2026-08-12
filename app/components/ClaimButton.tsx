@@ -47,8 +47,9 @@ export function ClaimButton() {
     const buttonDisabled = isSigning || isConfirming || isStatusLoading || !canClaim
 
     return(
-        <div>
+        <div className="flex flex-col w-full items-center gap-3">
             <button
+                className="flex gap-2 bg-blue-500 text-white text-sm px-4 py-3 rounded-lg border-2 border-slate-400 font-bold hover:bg-blue-600"
                 disabled = {buttonDisabled}
                 onClick={handleClaim}
             >
@@ -60,18 +61,18 @@ export function ClaimButton() {
                 {isConnected && !isStatusLoading && !isSigning && !isConfirming && !canClaim && `Next Claim in ${formatSecondsToHMS(secondsRemaining)}`}
             </button>
 
-            {writeError && (
-                <p>Transaction Failed: {getErrorMessage(writeError)}</p>
-            )}
+            <div className="w-full text-center break-words">
+                {writeError && (
+                    <p className="text-red-400">Transaction Failed: {getErrorMessage(writeError)}</p>
+                )}
 
-
-            {isSuccess && (
-                <p>BASH Claimed Successfully</p>
-            )}
+                {isSuccess && (
+                    <p className="text-green-400">BASH Claimed Successfully</p>
+                )}
+            </div>
+            
         </div>
     )
-    
-    
 }
 
 

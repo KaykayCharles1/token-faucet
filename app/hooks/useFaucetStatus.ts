@@ -44,11 +44,6 @@ export function useFaucetStatus(): FaucetStatus {
 
     const secondsRemaining = canClaim ? 0 : Number(rawSecondsRemaining);
 
-    console.log(secondsRemaining);
-    console.log(lastClaimedTime);
-    console.log(canClaim);
-    console.log(lastClaimed);
-
     return {
         balance: (balance as bigint) ?? BigInt(0),
         canClaim: canClaim,

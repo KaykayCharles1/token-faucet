@@ -1,25 +1,13 @@
 import {formatUnits} from "viem";
 import { useFaucetStatus } from "../hooks/useFaucetStatus";
 
-function formatSecondsToHMS(totalSeconds: number): string {
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600)/60);
-    const seconds = Math.floor(totalSeconds % 60);
-
-    const hourChange = String(hours).padStart(2, "0");
-    const minutesChange = String(minutes).padStart(2, "0");
-    const secondsChange = String(seconds).padStart(2, "0");
-    
-    return(`${hourChange}:${minutesChange}:${secondsChange}`)
-}
-
 export function BalanceDisplay() {
-    const {balance, canClaim, secondsRemaining, isConnected, isLoading} = useFaucetStatus()
+    const {balance, isConnected, isLoading} = useFaucetStatus()
     const cleanBalance = formatUnits(balance, 18);
 
     if(!isConnected) {
         return (
-            <div>
+            <div className="text-gray-900 dark:text-slate-100">
                 <p>Connect your wallet</p>
             </div>
         )
@@ -27,24 +15,17 @@ export function BalanceDisplay() {
 
     if (isLoading) {
         return (
-            <div>
+            <div className="text-gray-900 dark:text-slate-100">
                 <p>Loading data...</p>
             </div>
         )
     }
 
-    return (
-        <div>
-            <h2>Bash Token Faucet</h2>
-            <p>Bash Token Balance: {cleanBalance} BASH</p>
 
-            <div>
-                {canClaim ? (
-                <p>Claim Tokens</p> 
-            ) : (
-                <p>Time Remaining: {formatSecondsToHMS(secondsRemaining)}</p>
-            )}
-            </div>
+    return (
+        <div className="flex flex-col w-full text-gray-900 dark:text-slate-100">
+            <h2 className="text-center text-2xl mb-2 font-bold">Bash Token Faucet</h2>
+            <p className="font-medium text-center">Bash Token Balance: {cleanBalance} BASH</p>
         </div>
     )
 }
