@@ -63,6 +63,19 @@ contract FaucetTest is Test {
         assertEq(bashToken.balanceOf(alice), 1 ether);
     }
 
+    function testUserTotalClaimIncrement() public {
+        vm.startPrank(alice);
+        faucet.claim();
+        vm.warp(block.timestamp + 24 hours);
+        faucet.claim();
+        vm.warp(block.timestamp + 24 hours);
+        faucet.claim();
+        vm.stopPrank();
+
+        assertEq(bashToken.balanceOf(alice), 3 ether);
+        assertEq(faucet.totalClaimed(alice), 3 ether);
+    }
+
     function testOnlyOwnerWithdraw() public {
         address deployer = faucet.owner();
         vm.startPrank(deployer);
@@ -112,4 +125,17 @@ contract FaucetTest is Test {
         assertEq(secondClaimTime, block.timestamp);
 
     }
+
+    function testUserEmit() public {
+        vm.startPrank(alice);
+        vm.expectEmit(true, false, false, true, address(faucet));
+        emit Faucet.UserClaim(alice, 1 ether, block.timestamp);
+        uint256 time_before = block.timestamp;
+
+        faucet.claim();
+        uint256 time_after = block.timestamp;
+
+        assertEq(time_before, time_after);
+    }
 }
+

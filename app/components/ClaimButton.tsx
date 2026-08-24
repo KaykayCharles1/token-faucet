@@ -49,7 +49,7 @@ export function ClaimButton() {
     return(
         <div className="flex flex-col w-full items-center gap-3">
             <button
-                className="flex gap-2 bg-blue-500 text-white text-sm px-4 py-3 rounded-lg border-2 border-slate-400 font-bold hover:bg-blue-600"
+                className="flex gap-2 bg-blue-500 text-white text-sm px-4 py-3 rounded-lg border-2 border-slate-400 font-bold hover:bg-blue-600 cursor-pointer"
                 disabled = {buttonDisabled}
                 onClick={handleClaim}
             >

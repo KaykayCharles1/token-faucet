@@ -7,7 +7,7 @@ import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol
 
 contract Faucet is Ownable {
     using SafeERC20 for IERC20;
-    event TokenClaimed(address indexed user, uint256 amount);
+    event UserClaim(address indexed user, uint256 amount, uint256 timestamp);
     event TokensWithdrawn(address indexed owner, uint256 amount);
 
     error ClaimTooSoon(address user); //Custom error saves gas fees and even save more without any string
@@ -18,6 +18,7 @@ contract Faucet is Ownable {
     uint256 private constant DECIMALS = 10**18;
     
     mapping(address => uint256) public lastClaimTime;
+    mapping(address => uint256) public totalClaimed;
 
     constructor(address _token, uint256 _claimPeriod, uint256 _claimAmount) Ownable(msg.sender) {
         token = IERC20(_token);
@@ -35,9 +36,10 @@ contract Faucet is Ownable {
     function claim() public hasWaitedClaimPeriod {
         require(token.balanceOf(address(this)) >= claimAmount, "Unable to claim");
         lastClaimTime[msg.sender] = block.timestamp;
+        totalClaimed[msg.sender] += claimAmount;
         token.safeTransfer(msg.sender, claimAmount);
         
-        emit TokenClaimed(msg.sender, claimAmount);
+        emit UserClaim(msg.sender, claimAmount, block.timestamp);
     }
 
     function getLastClaimed(address user) external view returns (uint256) {

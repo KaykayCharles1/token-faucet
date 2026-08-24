@@ -7,8 +7,9 @@ export function BalanceDisplay() {
 
     if(!isConnected) {
         return (
-            <div className="text-gray-900 dark:text-slate-100">
-                <p>Connect your wallet</p>
+            <div className="flex flex-col gap-3 text-center">
+                <p className="text-3xl text-gray-900 dark:text-slate-100">BASH Token Faucet</p>
+                <p className="text-medium text-gray-900 dark:text-gray-500">Get free BASH Token on Base Sepolia</p>
             </div>
         )
     }

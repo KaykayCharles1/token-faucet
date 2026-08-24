@@ -3,6 +3,7 @@
 import { ConnectWallet } from "./components/ConnectWallet";
 import { BalanceDisplay } from "./components/BalanceDisplay";
 import { ClaimButton } from "./components/ClaimButton";
+import { LeaderboardTable } from "./components/LeaderboardDisplay";
 
 export default function Home() {  
   return (
@@ -11,7 +12,8 @@ export default function Home() {
         <ConnectWallet/>
         <BalanceDisplay/>
         <ClaimButton/>
+        <LeaderboardTable/>
       </main>
     </div>
-  ); 
+  );
 }

@@ -1,7 +1,13 @@
 "use client";
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useFaucetStatus } from "../hooks/useFaucetStatus";
 
 export function ConnectWallet() {
-    return <ConnectButton/>
+    const { isConnected } = useFaucetStatus();
+
+    if(isConnected || !isConnected) {
+        return <ConnectButton/>
+    }
+    
 }
